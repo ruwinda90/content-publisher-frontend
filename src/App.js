@@ -1,18 +1,19 @@
 import './App.css';
 import {useDispatch, useSelector} from "react-redux";
+import {actions} from "./store";
 
 function App() {
 
     const counter = useSelector(state => state.counter); // Bind part of the redux store
     const dispatch = useDispatch(); // send actions to the store.
     const increment = () => {
-        dispatch({type:"INC"});
+        dispatch(actions.increment());
     };
     const decrement = () => {
-        dispatch({type:"DEC"});
+        dispatch(actions.decrement());
     };
     const addBy = () => {
-      dispatch({type: "ADD", payload: 10})
+      dispatch(actions.addBy(10));
     }
 
     return (
