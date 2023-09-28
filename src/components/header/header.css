@@ -1,0 +1,9 @@
+.headerComp {
+    width: 100%;
+    background-color: mediumseagreen;
+    color: #fff;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}

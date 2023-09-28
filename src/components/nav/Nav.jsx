@@ -1,9 +1,10 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import "./nav.css";
 
 const Nav = () => {
   return (
-    <div>
+    <div className="navComp">
       <ul>
         <li><Link to="/">Home</Link></li>
         <li><Link to="/article">Articles</Link></li>

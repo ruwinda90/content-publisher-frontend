@@ -1,0 +1,9 @@
+.footerComp {
+    width: 100%;
+    color: #fff;
+    background-color: mediumseagreen;
+    padding: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

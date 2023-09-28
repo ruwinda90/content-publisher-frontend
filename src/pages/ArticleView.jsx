@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 
 const ArticleView = () => {
   return (
-    <div>ArticleView</div>
+    <div className="articleViewComp">ArticleView</div>
   )
 }
 

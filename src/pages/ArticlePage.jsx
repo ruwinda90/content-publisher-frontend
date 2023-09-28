@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const ArticlePage = () => {
-  return (
-    <div>ArticlePage</div>
-  )
-}
+  return <div className="articlePageComp">ArticlePage</div>;
+};
 
-export default ArticlePage
+export default ArticlePage;
