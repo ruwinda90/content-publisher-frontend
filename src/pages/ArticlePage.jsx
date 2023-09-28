@@ -1,5 +1,6 @@
 import React from "react";
 import ArticleList from "../components/articlelist/ArticleList";
+import ArticleSearch from "../components/articlesearch/ArticleSearch";
 
 const ArticlePage = ({ userWriterId }) => {
   const articleList = [
@@ -68,7 +69,7 @@ const ArticlePage = ({ userWriterId }) => {
   return (
     <div className="articlePageComp">
       <h1>Article List</h1>
-      <div style={{ color: "red" }}>Add search prompts - by keyword, author, category, updateddate</div>
+      <ArticleSearch />
       <div style={{ color: "red" }}>Add Pagination panels - previous, current, next</div>
       <div className="listArea">
         {articleList.length ? (
