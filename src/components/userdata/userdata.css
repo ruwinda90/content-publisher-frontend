@@ -1,0 +1,20 @@
+.userData {
+    display: flex;
+}
+
+.userData:hover {
+    cursor: pointer;
+}
+
+.email {
+    font-size: 14px;
+
+}
+
+.profilePic {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

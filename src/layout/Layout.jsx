@@ -8,7 +8,7 @@ import "./layout.css";
 const Layout = () => {
   return (
     <div className="layoutComp">
-      <Header />
+      <Header title="Content Publisher" />
       <Nav />
       <Outlet />
       <Footer />
