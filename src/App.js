@@ -8,12 +8,21 @@ import About from "./pages/About";
 import Missing from "./pages/Missing";
 
 function App() {
+  const userData = {
+    isLogged: true,
+    data: {
+      userId: 10,
+      userWriterId: null,
+      accessToken: "eYgdfsdkfgdfgkfghdl23489dfghs/sdfrfg443",
+    },
+  };
+
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="article">
-          <Route index element={<ArticlePage />} />
+          <Route index element={<ArticlePage userWriterId={userData.data.userWriterId}/>} />
           <Route path=":id" element={<ArticleView />} />
         </Route>
         <Route path="user" element={<UserPage />} />

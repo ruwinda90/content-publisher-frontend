@@ -1,0 +1,49 @@
+.articleComp {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 5px;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    border: 1px solid;
+    border-radius: 7px;
+}
+
+.articleComp button {
+    padding: 3px;
+    width: 80px;
+    height: 30px;
+    margin-top: 3px;
+    margin-right: 3px;
+    color: #fff;
+    border-radius: 3px;
+}
+
+.articleComp .viewButton {
+    background-color: mediumseagreen;
+    border: 1px solid green;
+}
+
+.articleComp .viewButton:hover {
+    cursor: pointer;
+    background-color: green;
+}
+
+.articleComp .editButton {
+    background-color: #008B8B;
+    border: 1px solid black;
+}
+
+.articleComp .editButton:hover {
+    cursor: pointer;
+    background-color: #004953;
+}
+
+.articleComp .deleteButton {
+    background-color: #BA0021;
+    border: 1px solid #97233F;
+}
+
+.articleComp .deleteButton:hover {
+    cursor: pointer;
+    background-color: #A52A2A;
+}
