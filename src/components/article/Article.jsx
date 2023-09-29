@@ -1,5 +1,6 @@
 import React from "react";
 import "./article.css";
+import { Link } from "react-router-dom";
 
 const Article = ({
   id,
@@ -15,13 +16,13 @@ const Article = ({
     <div className="articleComp">
       <h2>{topic}</h2>
       <p className="authorName">By {writerName}</p>
-      <p className="date">
-        Last updated on: {updatedAt.split(".")[0]}
-      </p>
+      <p className="date">Last updated on: {updatedAt.split(".")[0]}</p>
       <p>
         {summary.length <= 255 ? summary : `${summary.substring(0, 255)}...`}
       </p>
-      <button className="viewButton">View</button>
+        <Link to={`/article/${id}`}>
+          <button>View</button>
+        </Link>
       {userWriterId === writerId && (
         <>
           <button className="editButton">Edit</button>
