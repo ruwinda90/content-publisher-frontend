@@ -2,7 +2,7 @@ import React from "react";
 import "./article.css";
 
 const Article = ({
-  key,
+  id,
   topic,
   summary,
   createdAt,

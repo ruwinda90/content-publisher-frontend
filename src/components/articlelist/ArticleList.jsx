@@ -7,6 +7,7 @@ const ArticleList = ({ articles, userWriterId }) => {
       {articles.map((article) => (
         <Article
           key={article.id}
+          id={article.id}
           topic={article.title}
           summary={article.summary}
           createdAt={article.createdAt}
