@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import CategoryTag from "../components/categorytag/CategoryTag";
 import api from "../api/apiRequest";
 import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 
 const ArticleView = ({ userWriterId }) => {
   const { id } = useParams();
@@ -48,11 +48,6 @@ const ArticleView = ({ userWriterId }) => {
     return cleanUp;
   }, [id]);
 
-
-  const handleEdit = async () => {
-    console.log("TODO - implement this");
-  }
-
   const handleDelete = async () => {
     try {
       await api.delete(`/articles/${id}`); // todo - send popups notifiying the status of the action.
@@ -91,7 +86,9 @@ const ArticleView = ({ userWriterId }) => {
           </p>
           {userWriterId === article.writer.id && (
             <>
-              <button className="editButton" onClick={handleEdit}>Edit</button>
+              <Link to={`/article/${id}/edit`}>
+                <button className="editButton">Edit</button>
+              </Link>
               <button className="deleteButton" onClick={handleDelete}>Delete</button>
             </>
           )}
@@ -110,5 +107,5 @@ const ArticleView = ({ userWriterId }) => {
 export default ArticleView;
 
 ArticleView.defaultProps = {
-  userWriterId: 10,
+  userWriterId: 1,
 };

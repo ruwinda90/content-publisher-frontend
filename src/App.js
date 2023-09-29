@@ -6,6 +6,7 @@ import ArticleView from "./pages/ArticleView";
 import UserPage from "./pages/UserPage";
 import About from "./pages/About";
 import Missing from "./pages/Missing";
+import ArticleEdit from "./pages/ArticleEdit";
 
 function App() {
   const userData = {
@@ -23,7 +24,10 @@ function App() {
         <Route index element={<Home />} />
         <Route path="article">
           <Route index element={<ArticlePage userWriterId={userData.data.userWriterId}/>} />
-          <Route path=":id" element={<ArticleView />} />
+          <Route path=":id" >
+            <Route index element={<ArticleView />} />
+            <Route path="edit" element={<ArticleEdit />} />
+          </Route>
         </Route>
         <Route path="user" element={<UserPage />} />
         <Route path="about" element={<About />} />
