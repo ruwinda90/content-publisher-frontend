@@ -1,8 +1,8 @@
 import React from "react";
-import "./article.css";
+import "./articlecard.css";
 import { Link } from "react-router-dom";
 
-const Article = ({
+const ArticleCard = ({
   id,
   topic,
   summary,
@@ -33,4 +33,4 @@ const Article = ({
   );
 };
 
-export default Article;
+export default ArticleCard;

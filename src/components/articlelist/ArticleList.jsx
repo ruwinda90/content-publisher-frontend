@@ -1,11 +1,11 @@
 import React from "react";
-import Article from "../article/Article";
+import ArticleCard from "../articlecard/ArticleCard";
 
 const ArticleList = ({ articles, userWriterId }) => {
   return (
     <>
       {articles.map((article) => (
-        <Article
+        <ArticleCard
           key={article.id}
           id={article.id}
           topic={article.title}
