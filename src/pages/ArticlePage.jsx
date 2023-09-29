@@ -1,78 +1,39 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ArticleList from "../components/articlelist/ArticleList";
 import ArticleSearch from "../components/articlesearch/ArticleSearch";
 import PaginationData from "../components/paginationdata/PaginationData";
+import api from "../api/apiRequest";
 
 const ArticlePage = ({ userWriterId }) => {
-  const articleList = [
-    {
-      id: 1,
-      title: "How to use our platform",
-      summary:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      createdAt: "2022-11-13 11:48:22.562",
-      updatedAt: "2022-11-13 12:17:43.765",
-      writer: {
-        id: 1,
-        name: "Rick Astley",
-      },
-    },
-    {
-      id: 2,
-      title: "Whats special about our platform",
-      summary:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      createdAt: "2023-09-13 11:48:22.562",
-      updatedAt: "2023-09-23 12:00:43.000",
-      writer: {
-        id: 3,
-        name: "Martin Fowler",
-      },
-    },
-    {
-      id: 4,
-      title: "Beginner's guide on content writing",
-      summary:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      createdAt: "2023-09-13 11:48:22.562",
-      updatedAt: "2023-09-23 12:00:43.000",
-      writer: {
-        id: 70,
-        name: "Agatha Warren",
-      },
-    },
-    {
-      id: 5,
-      title: "10 reasons to go hiking immediately",
-      summary:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      createdAt: "2023-08-10 11:48:22.562",
-      updatedAt: "2023-09-23 12:00:43.000",
-      writer: {
-        id: 10,
-        name: "Han Solo",
-      },
-    },
-    {
-      id: 7,
-      title: "10 reasons to go hiking immediately",
-      summary:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      createdAt: "2023-08-10 11:48:22.562",
-      updatedAt: "2023-09-23 12:00:43.000",
-      writer: {
-        id: 10,
-        name: "Han Solo",
-      },
-    },
+  const categoryList = [
+    { id: 0, categoryName: "All categories" },
+    { id: 1, categoryName: "Hiking" },
+    { id: 2, categoryName: "Content publishing" },
+    { id: 3, categoryName: "Tutorials" },
   ];
 
-  const categoryList = [
-    {id:0, categoryName:"All categories"},
-    {id:1, categoryName:"Hiking"},
-    {id:2, categoryName:"Content publishing"},
-    {id:3, categoryName:"Tutorials"},
-  ];
+  const [articleList, setArticleList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isApiError, setIsApiError] = useState(false);
+  useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        const response = await api.get("/articles");
+        setArticleList(response.data); // todo - add a transform later.
+      } catch (err) {
+        setIsApiError(true);
+        if (err.response) {
+          console.log(err.response.data);
+          console.log(err.response.status);
+        } else {
+          console.log(`Error: ${err.message}`);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchArticles();
+  }, []);
 
   return (
     <div className="articlePageComp">
@@ -80,11 +41,17 @@ const ArticlePage = ({ userWriterId }) => {
       <ArticleSearch categoryList={categoryList} />
       <PaginationData />
       <div className="listArea">
-        {articleList.length ? (
-          <ArticleList articles={articleList} userWriterId={userWriterId} />
-        ) : (
-          <p>No articles found!</p>
+        {isLoading && <p>Loading latest articles please wait...</p>}
+        {!isLoading && isApiError && (
+          <p>Error while fetching articles. Try reloading the page.</p>
         )}
+        {!isLoading &&
+          !isApiError &&
+          (articleList.length ? (
+            <ArticleList articles={articleList} userWriterId={userWriterId} />
+          ) : (
+            <p>No articles found!</p>
+          ))}
       </div>
     </div>
   );
