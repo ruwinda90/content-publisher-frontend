@@ -9,6 +9,7 @@ const ArticlePage = ({ userWriterId }) => {
   const [articleList, setArticleList] = useState([]);
   const [isArticlesLoading, setIsArticlesLoading] = useState(true);
   const [isArticlesApiError, setIsArticlesApiError] = useState(false);
+  
   useEffect(() => {
     let isMount = true;
     const source = axios.CancelToken.source();
@@ -47,6 +48,7 @@ const ArticlePage = ({ userWriterId }) => {
   const [categoryList, setCategoryList] = useState([]);
   const [isCategoryLoading, setIsCategoryLoading] = useState(true);
   const [isCategoryApiError, setIsCategoryApiError] = useState(false);
+  
   useEffect(() => {
     const DEFAULT_CATEGORY = { id: 0, categoryName: "All categories" }; // todo - investigate this.
     let isMount = true;
