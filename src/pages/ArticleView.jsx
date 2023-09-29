@@ -1,40 +1,108 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import CategoryTag from "../components/categorytag/CategoryTag";
+import api from "../api/apiRequest";
+import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
 
-const ArticleView = ({
-  topic,
-  summary,
-  content,
-  createdAt,
-  updatedAt,
-  userWriterId,
-  writerId,
-  writerName,
-  categoryId,
-  categoryName,
-}) => {
+const ArticleView = ({ userWriterId }) => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [article, setArticle] = useState(null);
+  const [isArticleLoading, setIsArticleLoading] = useState(true);
+  const [isArticleApiError, setIsArticleApiError] = useState(false);
+  const [apiErrorCode, setApiErrorCode] = useState(null);
+
+  useEffect(() => {
+    let isMount = true;
+    const source = axios.CancelToken.source();
+
+    const fetchArticle = async () => {
+      try {
+        const response = await api.get(`/articles/${id}`, {
+          cancelToken: source.token,
+        });
+        if (isMount) setArticle(response.data); // todo - add a transform later.
+      } catch (err) {
+        if (isMount) {
+          setIsArticleApiError(true);
+          if (err.response) {
+            console.log(err.response.data);
+            console.log(err.response.status);
+            setApiErrorCode(err.response.status);
+          } else {
+            console.log(`Error: ${err.message}`);
+          }
+        }
+      } finally {
+        if (isMount) setIsArticleLoading(false);
+      }
+    };
+    fetchArticle();
+
+    const cleanUp = () => {
+      // Clean up function.
+      isMount = false;
+      source.cancel();
+    };
+
+    return cleanUp;
+  }, [id]);
+
+
+  const handleEdit = async () => {
+    console.log("TODO - implement this");
+  }
+
+  const handleDelete = async () => {
+    try {
+      await api.delete(`/articles/${id}`); // todo - send popups notifiying the status of the action.
+      navigate("/article");
+    } catch (err) {
+      console.log(err.response.data);
+      console.log(err.response.status);
+    }
+  }
+
   return (
     <div className="articleViewComp">
-      <h1>{topic}</h1>
-      <p className="authorName">By {writerName}</p>
-      <p className="date">Last updated on: {updatedAt.split(".")[0]}</p>
-      <p className="date">Originally published on: {createdAt.split(".")[0]}</p>
-      <p style={{ marginTop: "5px", marginBottom: "5px" }}>
-        Tags:{" "}
-        <CategoryTag categoryId={categoryId} categoryName={categoryName}/>
-      </p>
-      {userWriterId === writerId && (
+      {isArticleLoading && <p>Loading data please wait...</p>}
+      {!isArticleLoading && isArticleApiError && apiErrorCode === 404 && (
+        <p>Article not found.</p>
+      )}
+      {!isArticleLoading && isArticleApiError && !apiErrorCode === 404 && (
+        <p>Error while fetching the article. Try reloading the page.</p>
+      )}
+      {!isArticleLoading && !isArticleApiError && (
         <>
-          <button className="editButton">Edit</button>
-          <button className="deleteButton">Delete</button>
+          <h1>{article.title}</h1>
+          <p className="authorName">By {article.writer.name}</p>
+          <p className="date">
+            Last updated on: {article.updatedAt.split(".")[0]}
+          </p>
+          <p className="date">
+            Originally published on: {article.createdAt.split(".")[0]}
+          </p>
+          <p style={{ marginTop: "5px", marginBottom: "5px" }}>
+            Tags:{" "}
+            <CategoryTag
+              categoryId={article.category.id}
+              categoryName={article.category.name}
+            />
+          </p>
+          {userWriterId === article.writer.id && (
+            <>
+              <button className="editButton" onClick={handleEdit}>Edit</button>
+              <button className="deleteButton" onClick={handleDelete}>Delete</button>
+            </>
+          )}
+          <div className="listArea">
+            <h2>Summary</h2>
+            <p>{article.summary}</p>
+            <h2>Content</h2>
+            <p>{article.content}</p>
+          </div>
         </>
       )}
-      <div className="listArea">
-        <h2>Summary</h2>
-        <p>{summary}</p>
-        <h2>Content</h2>
-        <p>{content}</p>
-      </div>
     </div>
   );
 };
@@ -42,16 +110,5 @@ const ArticleView = ({
 export default ArticleView;
 
 ArticleView.defaultProps = {
-  topic: "How to use our platform",
-  summary:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  content:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  createdAt: "2022-11-13 11:48:22.562",
-  updatedAt: "2022-11-13 11:48:22.562",
-  userWriterId: 1,
-  writerId: 1,
-  writerName: "Rick Astley",
-  categoryId: 3,
-  categoryName: "Tutorials",
+  userWriterId: 10,
 };

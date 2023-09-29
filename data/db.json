@@ -23,6 +23,10 @@
             "writer": {
                 "id": 1,
                 "name": "Rick Astley"
+            },
+            "category": {
+                "id": 3,
+                "name": "Tutorials"
             }
         },
         {
@@ -34,6 +38,10 @@
             "writer": {
                 "id": 3,
                 "name": "Martin Fowler"
+            },
+            "category": {
+                "id": 3,
+                "name": "Tutorials"
             }
         },
         {
@@ -45,6 +53,10 @@
             "writer": {
                 "id": 70,
                 "name": "Agatha Warren"
+            },
+            "category": {
+                "id": 2,
+                "name": "Content publishing"
             }
         },
         {
@@ -56,6 +68,10 @@
             "writer": {
                 "id": 10,
                 "name": "Han Solo"
+            },
+            "category": {
+                "id": 1,
+                "name": "Hiking"
             }
         },
         {
@@ -67,6 +83,10 @@
             "writer": {
                 "id": 10,
                 "name": "Han Solo"
+            },
+            "category": {
+                "id": 1,
+                "name": "Hiking"
             }
         }
     ]
