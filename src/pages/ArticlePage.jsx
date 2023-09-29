@@ -3,29 +3,45 @@ import ArticleList from "../components/articlelist/ArticleList";
 import ArticleSearch from "../components/articlesearch/ArticleSearch";
 import PaginationData from "../components/paginationdata/PaginationData";
 import api from "../api/apiRequest";
+import axios from "axios";
 
 const ArticlePage = ({ userWriterId }) => {
   const [articleList, setArticleList] = useState([]);
   const [isArticlesLoading, setIsArticlesLoading] = useState(true);
   const [isArticlesApiError, setIsArticlesApiError] = useState(false);
   useEffect(() => {
+    let isMount = true;
+    const source = axios.CancelToken.source();
+
     const fetchArticles = async () => {
       try {
-        const response = await api.get("/articles");
-        setArticleList(response.data); // todo - add a transform later.
+        const response = await api.get("/articles", {
+          cancelToken: source.token,
+        });
+        if (isMount) setArticleList(response.data); // todo - add a transform later.
       } catch (err) {
-        setIsArticlesApiError(true);
-        if (err.response) {
-          console.log(err.response.data);
-          console.log(err.response.status);
-        } else {
-          console.log(`Error: ${err.message}`);
+        if (isMount) {
+          setIsArticlesApiError(true);
+          if (err.response) {
+            console.log(err.response.data);
+            console.log(err.response.status);
+          } else {
+            console.log(`Error: ${err.message}`);
+          }
         }
       } finally {
-        setIsArticlesLoading(false);
+        if (isMount) setIsArticlesLoading(false);
       }
     };
     fetchArticles();
+
+    const cleanUp = () => {
+      // Clean up function.
+      isMount = false;
+      source.cancel();
+    };
+
+    return cleanUp;
   }, []);
 
   const [categoryList, setCategoryList] = useState([]);
@@ -33,24 +49,38 @@ const ArticlePage = ({ userWriterId }) => {
   const [isCategoryApiError, setIsCategoryApiError] = useState(false);
   useEffect(() => {
     const DEFAULT_CATEGORY = { id: 0, categoryName: "All categories" }; // todo - investigate this.
+    let isMount = true;
+    const source = axios.CancelToken.source();
 
     const fetchCategories = async () => {
       try {
-        const response = await api.get("/categories");
-        setCategoryList([...response.data, DEFAULT_CATEGORY]); // todo - add a transform later.
+        const response = await api.get("/categories", {
+          cancelToken: source.token,
+        });
+        if (isMount) setCategoryList([...response.data, DEFAULT_CATEGORY]); // todo - add a transform later.
       } catch (err) {
-        setIsCategoryApiError(true);
-        if (err.response) {
-          console.log(err.response.data);
-          console.log(err.response.status);
-        } else {
-          console.log(`Error: ${err.message}`);
+        if (isMount) {
+          setIsCategoryApiError(true);
+          if (err.response) {
+            console.log(err.response.data);
+            console.log(err.response.status);
+          } else {
+            console.log(`Error: ${err.message}`);
+          }
         }
       } finally {
-        setIsCategoryLoading(false);
+        if (isMount) setIsCategoryLoading(false);
       }
     };
     fetchCategories();
+
+    const cleanUp = () => {
+      // Clean up function.
+      isMount = false;
+      source.cancel();
+    };
+
+    return cleanUp;
   }, []);
 
   return (
