@@ -41,7 +41,7 @@ const ArticlePage = ({ userWriterId }) => {
       },
     },
     {
-      id: 4,
+      id: 5,
       title: "10 reasons to go hiking immediately",
       summary:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -53,7 +53,7 @@ const ArticlePage = ({ userWriterId }) => {
       },
     },
     {
-      id: 5,
+      id: 7,
       title: "10 reasons to go hiking immediately",
       summary:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -66,10 +66,17 @@ const ArticlePage = ({ userWriterId }) => {
     },
   ];
 
+  const categoryList = [
+    {id:0, categoryName:"All categories"},
+    {id:1, categoryName:"Hiking"},
+    {id:2, categoryName:"Content publishing"},
+    {id:3, categoryName:"Tutorials"},
+  ];
+
   return (
     <div className="articlePageComp">
       <h1>Article List</h1>
-      <ArticleSearch />
+      <ArticleSearch categoryList={categoryList} />
       <div style={{ color: "red" }}>Add Pagination panels - previous, current, next</div>
       <div className="listArea">
         {articleList.length ? (

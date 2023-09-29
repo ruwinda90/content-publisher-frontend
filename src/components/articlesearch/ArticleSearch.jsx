@@ -1,20 +1,20 @@
 import React, { useRef, useState } from "react";
-import "./articlesearch.css"
+import "./articlesearch.css";
 
-const ArticleSearch = () => {
+const ArticleSearch = ({ categoryList }) => {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [searchAuthorName, setSearchAuthorName] = useState("");
-  const [searchCategory, setSearchCategory] = useState(null);
+  const [searchCategory, setSearchCategory] = useState(0);
   const inputRef = useRef();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // todo
-  }
+  };
 
   return (
     //  TODO Add search prompts - by keyword, author, category, updateddate
-    <form className="searchForm" onSubmit={e => handleSubmit(e)}>
+    <form className="searchForm" onSubmit={(e) => handleSubmit(e)}>
       <label htmlFor="searchByKeyword">Search articles by keyword</label>
       <input
         autoFocus
@@ -34,14 +34,22 @@ const ArticleSearch = () => {
         onChange={(e) => setSearchAuthorName(e.target.value)}
       />
       <label htmlFor="searchByCategory">Search articles by category</label>
-      <input
+      <select
+        name="searchByCategory"
         id="searchByCategory"
-        type="text"
-        placeholder="Category"
         value={searchCategory}
         onChange={(e) => setSearchCategory(e.target.value)}
-      />
-      <button type="submit" onClick={() => inputRef.current.focus()}>Search</button>
+      >
+        {categoryList.map((category) => (
+          <option key={category.id} value={category.id}>
+            {category.categoryName}
+          </option>
+        ))}
+      </select>
+
+      <button type="submit" onClick={() => inputRef.current.focus()}>
+        Search
+      </button>
     </form>
   );
 };

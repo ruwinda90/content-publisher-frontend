@@ -9,6 +9,12 @@
     height: 30px;
 }
 
+.searchForm select {
+    margin-left: 3px;
+    margin-right: 3px;
+    height: 30px;
+}
+
 .searchForm button {
     padding: 3px;
     width: 80px;
