@@ -14,8 +14,8 @@ const Article = ({
   return (
     <div className="articleComp">
       <h2>{topic}</h2>
-      <p style={{ color: "mediumseagreen" }}>By {writerName}</p>
-      <p style={{ fontSize: "14px", color: "green" }}>
+      <p className="authorName">By {writerName}</p>
+      <p className="date">
         Last updated on: {updatedAt.split(".")[0]}
       </p>
       <p>

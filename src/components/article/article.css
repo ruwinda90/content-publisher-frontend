@@ -8,6 +8,15 @@
     border-radius: 7px;
 }
 
+.articleComp .authorName {
+    color: mediumseagreen;
+}
+
+.articleComp .date {
+    color: green;
+    font-size: 14px;
+}
+
 .articleComp button {
     padding: 3px;
     width: 80px;
