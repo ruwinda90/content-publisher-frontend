@@ -5,23 +5,16 @@ import PaginationData from "../components/paginationdata/PaginationData";
 import api from "../api/apiRequest";
 
 const ArticlePage = ({ userWriterId }) => {
-  const categoryList = [
-    { id: 0, categoryName: "All categories" },
-    { id: 1, categoryName: "Hiking" },
-    { id: 2, categoryName: "Content publishing" },
-    { id: 3, categoryName: "Tutorials" },
-  ];
-
   const [articleList, setArticleList] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isApiError, setIsApiError] = useState(false);
+  const [isArticlesLoading, setIsArticlesLoading] = useState(true);
+  const [isArticlesApiError, setIsArticlesApiError] = useState(false);
   useEffect(() => {
     const fetchArticles = async () => {
       try {
         const response = await api.get("/articles");
         setArticleList(response.data); // todo - add a transform later.
       } catch (err) {
-        setIsApiError(true);
+        setIsArticlesApiError(true);
         if (err.response) {
           console.log(err.response.data);
           console.log(err.response.status);
@@ -29,24 +22,54 @@ const ArticlePage = ({ userWriterId }) => {
           console.log(`Error: ${err.message}`);
         }
       } finally {
-        setIsLoading(false);
+        setIsArticlesLoading(false);
       }
     };
     fetchArticles();
   }, []);
 
+  const [categoryList, setCategoryList] = useState([]);
+  const [isCategoryLoading, setIsCategoryLoading] = useState(true);
+  const [isCategoryApiError, setIsCategoryApiError] = useState(false);
+  useEffect(() => {
+    const DEFAULT_CATEGORY = { id: 0, categoryName: "All categories" }; // todo - investigate this.
+
+    const fetchCategories = async () => {
+      try {
+        const response = await api.get("/categories");
+        setCategoryList([...response.data, DEFAULT_CATEGORY]); // todo - add a transform later.
+      } catch (err) {
+        setIsCategoryApiError(true);
+        if (err.response) {
+          console.log(err.response.data);
+          console.log(err.response.status);
+        } else {
+          console.log(`Error: ${err.message}`);
+        }
+      } finally {
+        setIsCategoryLoading(false);
+      }
+    };
+    fetchCategories();
+  }, []);
+
   return (
     <div className="articlePageComp">
       <h1>Article List</h1>
-      <ArticleSearch categoryList={categoryList} />
+      {!isCategoryLoading && isCategoryApiError && (
+        <p>Error while fetching categories. Try reloading the page.</p>
+      )}
+      {!isCategoryLoading && !isCategoryApiError && (
+        <ArticleSearch categoryList={categoryList} />
+      )}
       <PaginationData />
       <div className="listArea">
-        {isLoading && <p>Loading latest articles please wait...</p>}
-        {!isLoading && isApiError && (
+        {isArticlesLoading && <p>Loading latest articles please wait...</p>}
+        {!isArticlesLoading && isArticlesApiError && (
           <p>Error while fetching articles. Try reloading the page.</p>
         )}
-        {!isLoading &&
-          !isApiError &&
+        {!isArticlesLoading &&
+          !isArticlesApiError &&
           (articleList.length ? (
             <ArticleList articles={articleList} userWriterId={userWriterId} />
           ) : (

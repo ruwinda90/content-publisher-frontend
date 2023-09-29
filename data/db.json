@@ -1,4 +1,18 @@
 {
+    "categories": [
+        {
+            "id": 1,
+            "categoryName": "Hiking"
+        },
+        {
+            "id": 2,
+            "categoryName": "Content publishing"
+        },
+        {
+            "id": 3,
+            "categoryName": "Tutorials"
+        }
+    ],
     "articles": [
         {
             "id": 1,
