@@ -21,7 +21,7 @@ const ArticleCard = ({
         {summary.length <= 255 ? summary : `${summary.substring(0, 255)}...`}
       </p>
         <Link to={`/article/${id}`}>
-          <button>View</button>
+          <button className="viewButton">View</button>
         </Link>
       {userWriterId === writerId && (
         <>
