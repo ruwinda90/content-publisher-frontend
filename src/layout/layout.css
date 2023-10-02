@@ -24,8 +24,16 @@
   border-radius: 3px;
 }
 
-.layoutComp button:hover {
+.layoutComp button:hover:enabled {
   cursor: pointer;
+}
+
+.layoutComp button:hover:disabled {
+  cursor: not-allowed;
+}
+
+.layoutComp button:disabled {
+  background-color: grey;
 }
 
 .layoutComp .viewButton {
@@ -33,7 +41,7 @@
   border: 1px solid green;
 }
 
-.layoutComp .viewButton:hover {
+.layoutComp .viewButton:hover:enabled {
   background-color: green;
 }
 
@@ -42,7 +50,7 @@
   border: 1px solid black;
 }
 
-.layoutComp .editButton:hover {
+.layoutComp .editButton:hover:enabled {
   background-color: #004953;
 }
 
@@ -51,7 +59,7 @@
   border: 1px solid #97233F;
 }
 
-.layoutComp .deleteButton:hover {
+.layoutComp .deleteButton:hover:enabled {
   background-color: #A52A2A;
 }
 

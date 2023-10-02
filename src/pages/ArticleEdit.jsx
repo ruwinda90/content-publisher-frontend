@@ -126,6 +126,11 @@ const ArticleEdit = () => {
             className="editButton"
             type="submit"
             onClick={() => inputRef.current.focus()}
+            disabled={
+              newTitle === article.title &&
+              newSummary == article.summary &&
+              newContent === article.content
+            }
           >
             Edit
           </button>
