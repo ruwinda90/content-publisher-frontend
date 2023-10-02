@@ -1,33 +1,8 @@
-.searchForm label {
-    position: absolute;
-    left: -99999px;
-}
-
-.searchForm input {
-    margin-left: 3px;
-    margin-right: 3px;
-    height: 30px;
-}
-
-.searchForm select {
-    margin-left: 3px;
-    margin-right: 3px;
-    height: 30px;
-}
-
-.searchForm button {
-    padding: 3px;
-    width: 80px;
-    height: 30px;
-    margin-top: 3px;
-    margin-right: 3px;
-    color: #fff;
-    border-radius: 3px;
+.articlePageComp .searchForm button {
     background-color: mediumseagreen;
     border: 1px solid green;
 }
 
-.searchForm button:hover {
-    cursor: pointer;
+.articlePageComp .searchForm button:hover {
     background-color: green;
 }
