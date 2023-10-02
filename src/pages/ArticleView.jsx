@@ -56,16 +56,19 @@ const ArticleView = ({ userWriterId }) => {
       console.log(err.response.data);
       console.log(err.response.status);
     }
-  }
+  };
 
   return (
     <div className="articleViewComp">
       {isArticleLoading && <p>Loading data please wait...</p>}
-      {!isArticleLoading && isArticleApiError && apiErrorCode === 404 && (
-        <p>Article not found.</p>
-      )}
-      {!isArticleLoading && isArticleApiError && !apiErrorCode === 404 && (
-        <p>Error while fetching the article. Try reloading the page.</p>
+      {!isArticleLoading && isArticleApiError && (
+        <p>
+          {apiErrorCode === 404
+            ? "Article not found"
+            : apiErrorCode === 401
+            ? "Unauthorized"
+            : "Error while fetching the article. Try reloading the page."}
+        </p>
       )}
       {!isArticleLoading && !isArticleApiError && (
         <>
@@ -89,7 +92,9 @@ const ArticleView = ({ userWriterId }) => {
               <Link to={`/article/${id}/edit`}>
                 <button className="editButton">Edit</button>
               </Link>
-              <button className="deleteButton" onClick={handleDelete}>Delete</button>
+              <button className="deleteButton" onClick={handleDelete}>
+                Delete
+              </button>
             </>
           )}
           <div className="listArea">
