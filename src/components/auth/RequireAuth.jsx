@@ -1,19 +1,12 @@
 import React from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 const RequireAuth = () => {
+  const isLogged = useSelector((state) => state.auth.isLogged);
   const location = useLocation();
 
-  const userData = {
-    isLogged: false,
-    data: {
-      userId: 10,
-      userWriterId: null,
-      accessToken: "eYgdfsdkfgdfgkfghdl23489dfghs/sdfrfg443",
-    },
-  };
-
-  return userData.isLogged ? (
+  return isLogged ? (
     <Outlet />
   ) : (
     <Navigate to="/login" state={{ from: location }} replace />

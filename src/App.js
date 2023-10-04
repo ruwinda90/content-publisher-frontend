@@ -11,26 +11,23 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import RequireAuth from "./components/auth/RequireAuth";
 import NotRequireAuth from "./components/auth/NotRequireAuth";
+import { useSelector } from "react-redux";
 
 function App() {
-  const userData = {
-    isLogged: true,
-    data: {
-      userId: 10,
-      userWriterId: null,
-      accessToken: "eYgdfsdkfgdfgkfghdl23489dfghs/sdfrfg443",
-    },
-  };
+  const userWriterId = useSelector((state) => state.auth.data.userWriterId);
 
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route element={<RequireAuth />}>
-        {/* Protected routes */}
+          {/* Protected routes */}
           <Route index element={<Home />} />
           <Route path="article">
-            <Route index element={<ArticlePage userWriterId={userData.data.userWriterId}/>} />
-            <Route path=":id" >
+            <Route
+              index
+              element={<ArticlePage userWriterId={userWriterId} />}
+            />
+            <Route path=":id">
               <Route index element={<ArticleView />} />
               <Route path="edit" element={<ArticleEdit />} />
             </Route>
