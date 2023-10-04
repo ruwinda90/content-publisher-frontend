@@ -14,7 +14,7 @@
   padding-bottom: 100px;
 }
 
-.layoutComp button {
+button {
   padding: 3px;
   width: 80px;
   height: 30px;
@@ -24,15 +24,15 @@
   border-radius: 3px;
 }
 
-.layoutComp button:hover:enabled {
+button:hover:enabled {
   cursor: pointer;
 }
 
-.layoutComp button:hover:disabled {
+button:hover:disabled {
   cursor: not-allowed;
 }
 
-.layoutComp button:disabled {
+button:disabled {
   background-color: grey;
 }
 
@@ -95,6 +95,64 @@
   margin-left: 3px;
   margin-right: 3px;
   height: 30px;
+}
+
+/* Login page CSS. */
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.login .loginArea {
+  color: white;
+  background: mediumseagreen;
+  padding: 50px;
+  border-radius: 10px;
+}
+
+.login .loginArea h1 {
+  margin-bottom: 20px;
+}
+
+.login .loginArea a {
+  color: white;
+}
+
+.login .loginArea .loginForm {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 1rem;
+}
+
+.login .loginArea .loginForm label {
+  margin-bottom: 5px;
+}
+
+.login .loginArea .loginForm input {
+  margin-left: 3px;
+  margin-right: 3px;
+  margin-bottom: 5px;
+  height: 30px;
+  outline: none;
+  padding: 0.25rem;
+  border-radius: 3px;
+}
+
+.login .loginArea .loginForm button {
+  margin-top: 20px;
+  background-color: #008B8B;
+  border: 1px solid green;
+}
+
+.login .loginArea .loginForm button:hover:enabled {
+  background-color: #004953;
+}
+
+.login .loginArea .loginForm button:disabled {
+  background-color: grey;
 }
 
 /*Article view page CSS. */
