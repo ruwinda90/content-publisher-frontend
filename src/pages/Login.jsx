@@ -30,7 +30,7 @@ const Login = () => {
             value={pwd}
             onChange={(e) => setPwd(e.target.value)}
           />
-          <button disabled={!username || !pwd}>Submit</button>
+          <button disabled={!username || !pwd}>Login</button>
         </form>
         <Link to="/register">Register</Link>
       </div>

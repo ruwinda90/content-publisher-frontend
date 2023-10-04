@@ -111,6 +111,7 @@ button:disabled {
   background: mediumseagreen;
   padding: 50px;
   border-radius: 10px;
+  width:400px;
 }
 
 .login .loginArea h1 {
