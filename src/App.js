@@ -9,7 +9,8 @@ import Missing from "./pages/Missing";
 import ArticleEdit from "./pages/ArticleEdit";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import RequireAuth from "./components/requireauth/RequireAuth";
+import RequireAuth from "./components/auth/RequireAuth";
+import NotRequireAuth from "./components/auth/NotRequireAuth";
 
 function App() {
   const userData = {
@@ -41,8 +42,10 @@ function App() {
       </Route>
 
       {/* Unprotected routes */}
-      <Route path="/register" element={<Register />} />
-      <Route path="/login" element={<Login />} />
+      <Route element={<NotRequireAuth />}>
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+      </Route>
     </Routes>
   );
 }

@@ -1,11 +1,11 @@
 import React from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 
-const RequireAuth = () => {
+const NotRequireAuth = () => {
   const location = useLocation();
 
   const userData = {
-    isLogged: true,
+    isLogged: false,
     data: {
       userId: 10,
       userWriterId: null,
@@ -13,11 +13,11 @@ const RequireAuth = () => {
     },
   };
 
-  return userData.isLogged ? (
+  return !userData?.isLogged ? (
     <Outlet />
   ) : (
-    <Navigate to="/login" state={{ from: location }} replace />
+    <Navigate to="/home" state={{ from: location }} replace />
   );
 };
 
-export default RequireAuth;
+export default NotRequireAuth;
