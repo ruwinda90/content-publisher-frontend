@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { USERNAME_REGEX } from "../util/constants";
 
-const Register = () => { // todo - complete this
+const Register = () => {
+  // todo - complete this
   const [username, setUsername] = useState("");
   const [pwd, setPwd] = useState("");
   const [confirmPwd, setConfirmPwd] = useState("");
@@ -10,6 +11,10 @@ const Register = () => { // todo - complete this
   const [isUsernameValid, setIsUsernameValid] = useState(false);
   const [isPwdValid, setIsPwdValid] = useState(false);
   const [isConfirmPwdValid, setIsConfirmPwdValid] = useState(false);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   useEffect(() => {
     const checkUsername = () => {
@@ -22,6 +27,8 @@ const Register = () => { // todo - complete this
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Handle submit");
+    // todo - let's pretend this is success.
+    navigate(from, { replace: true });
   };
 
   return (
@@ -30,7 +37,9 @@ const Register = () => { // todo - complete this
         <h1>Register</h1>
         <form className="loginForm" onSubmit={handleSubmit}>
           <label htmlFor="username">Username</label>
-          {(!isUsernameValid && username) && <p style={{color:"aquamarine"}}>Username is not valid!</p>}
+          {!isUsernameValid && username && (
+            <p style={{ color: "aquamarine" }}>Username is not valid!</p>
+          )}
           <input
             autoFocus
             id="username"

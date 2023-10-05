@@ -10,7 +10,7 @@ const NotRequireAuth = () => {
   return !isLogged ? (
     <Outlet />
   ) : (
-    <Navigate to="/home" state={{ from: location }} replace />
+    <Navigate to="/" state={{ from: location }} replace />
   );
 };
 

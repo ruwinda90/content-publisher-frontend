@@ -8,6 +8,7 @@ const authSlice = createSlice({
       userId: null,
       userWriterId: null,
       accessToken: null,
+      role: 1000,
     },
   },
   reducers: {

@@ -69,6 +69,8 @@ button:disabled {
 .articlePageComp,
 .articleViewComp,
 .articleEditComp,
+.publishComp,
+.unauthorizedComp,
 .missingComp {
   width: 100%;
   flex-grow: 1;

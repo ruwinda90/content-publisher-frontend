@@ -1,13 +1,24 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { userLogged } from "../store/authSlice";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [pwd, setPwd] = useState("");
 
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
+  const dispatch = useDispatch();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Handle submit");
+    // todo - let's pretend this is success.
+    dispatch(userLogged({}))
+    navigate(from, { replace: true });
   };
 
   return (
