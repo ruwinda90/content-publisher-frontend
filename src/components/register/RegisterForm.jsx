@@ -47,16 +47,19 @@ const RegisterForm = () => {
       });
       navigate("/"); // TODO - show login success message, when it is successful.
     } catch (err) {
+      let errorMsg;
       if (err.response) {
         console.log(
           `Response status: ${
             err.response.status
           } Response data: ${JSON.stringify(err.response.data)}`
         );
-        setErrorMessage(err.response.data.description);
+        errorMsg = err.response.data.description;
       } else {
         console.log(`Error: ${err.message}`);
+       errorMsg = err.message;
       }
+      setErrorMessage(errorMsg);
     }
   };
 
