@@ -9,7 +9,7 @@ const Login = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from?.pathname || "/"; // Navigate user back to wherever he/she was.
 
   const dispatch = useDispatch();
 
