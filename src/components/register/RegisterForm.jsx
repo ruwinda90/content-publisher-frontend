@@ -3,9 +3,9 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { PWD_REGEX, USERNAME_REGEX } from "../../util/constants";
 import "./registerform.css";
 import FormPrompt from "./FormPrompt";
+import { authApi as api } from "../../api/apiRequest";
 
 const RegisterForm = () => {
-  // todo - complete this
   const [username, setUsername] = useState("");
   const [pwd, setPwd] = useState("");
   const [confirmPwd, setConfirmPwd] = useState("");
@@ -14,6 +14,8 @@ const RegisterForm = () => {
   const [isPwdValid, setIsPwdValid] = useState(false);
   const [isConfirmPwdValid, setIsConfirmPwdValid] = useState(false);
 
+  const [errorMessage, setErrorMessage] = useState("");
+
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -21,6 +23,7 @@ const RegisterForm = () => {
   useEffect(() => {
     const checkUsername = () => {
       setIsUsernameValid(USERNAME_REGEX.test(username));
+      setErrorMessage("");
     };
 
     checkUsername();
@@ -30,16 +33,33 @@ const RegisterForm = () => {
     const checkPwdValues = () => {
       setIsPwdValid(PWD_REGEX.test(pwd));
       setIsConfirmPwdValid(pwd === confirmPwd);
+      setErrorMessage("");
     };
 
     checkPwdValues();
   }, [pwd, confirmPwd]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Handle submit");
-    // todo - let's pretend this is success.
-    navigate(from, { replace: true });
+
+    try {
+      await api.post("/register", {
+        email: username,
+        password: pwd,
+      });
+      navigate(from, { replace: true });
+    } catch (err) {
+      if (err.response) {
+        console.log(
+          `Response status: ${
+            err.response.status
+          } Response data: ${JSON.stringify(err.response.data)}`
+        );
+        setErrorMessage(err.response.data.description);
+      } else {
+        console.log(`Error: ${err.message}`);
+      }
+    }
   };
 
   return (
@@ -85,7 +105,12 @@ const RegisterForm = () => {
           value={confirmPwd}
           onChange={(e) => setConfirmPwd(e.target.value)}
         />
-        <button disabled={!username || !pwd}>Register</button>
+        {errorMessage && <FormPrompt message={`Failure - ${errorMessage}`} />}
+        <button
+          disabled={!isUsernameValid || !isPwdValid || !isConfirmPwdValid}
+        >
+          Register
+        </button>
       </form>
       <Link to="/login">Already have an account?</Link>
     </div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CategoryTag from "../components/categorytag/CategoryTag";
-import api from "../api/apiRequest";
+import { api } from "../api/apiRequest";
 import axios from "axios";
 import { useParams, useNavigate, Link } from "react-router-dom";
 
