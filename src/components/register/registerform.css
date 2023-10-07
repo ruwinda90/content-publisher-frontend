@@ -20,6 +20,15 @@
     padding-bottom: 1rem;
 }
 
+.loginComp .loginArea .loginForm .prompt {
+    color: aquamarine;
+    background-color: black;
+    margin: 3px 3px 0px 3px;
+    padding: 3px;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
 .loginComp .loginArea .loginForm label {
     margin-bottom: 5px;
 }

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { USERNAME_REGEX } from "../../util/constants";
-import { FaInfoCircle } from "react-icons/fa";
+import { PWD_REGEX, USERNAME_REGEX } from "../../util/constants";
 import "./registerform.css";
+import FormPrompt from "./FormPrompt";
 
 const RegisterForm = () => {
   // todo - complete this
@@ -26,6 +26,15 @@ const RegisterForm = () => {
     checkUsername();
   }, [username]);
 
+  useEffect(() => {
+    const checkPwdValues = () => {
+      setIsPwdValid(PWD_REGEX.test(pwd));
+      setIsConfirmPwdValid(pwd === confirmPwd);
+    };
+
+    checkPwdValues();
+  }, [pwd, confirmPwd]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Handle submit");
@@ -39,19 +48,11 @@ const RegisterForm = () => {
       <form className="loginForm" onSubmit={handleSubmit}>
         <label htmlFor="username">Username</label>
         {!isUsernameValid && username && (
-          <p
-            style={{
-              color: "aquamarine",
-              backgroundColor: "black",
-              margin: "3px 3px 0px 3px",
-              padding: "3px",
-              boxSizing: "border-box",
-              borderRadius: "5px",
-            }}
-          >
-            <FaInfoCircle />
-            &nbsp;Username is not valid!
-          </p>
+          <FormPrompt
+            message={
+              "Username is not valid! Should contain 4-24 characters. Should not start with a number."
+            }
+          />
         )}
         <input
           autoFocus
@@ -61,6 +62,13 @@ const RegisterForm = () => {
           onChange={(e) => setUsername(e.target.value)}
         />
         <label htmlFor="password">Password</label>
+        {!isPwdValid && pwd && (
+          <FormPrompt
+            message={
+              "Password is not valid! Should contain 8-24 characters, at least one lowercase, one uppercase and one special character."
+            }
+          />
+        )}
         <input
           id="password"
           type="password"
@@ -68,6 +76,9 @@ const RegisterForm = () => {
           onChange={(e) => setPwd(e.target.value)}
         />
         <label htmlFor="confirmPassword">Confirm Password</label>
+        {!isConfirmPwdValid && confirmPwd && (
+          <FormPrompt message={"Does not match with password field."} />
+        )}
         <input
           id="confirmPassword"
           type="password"
