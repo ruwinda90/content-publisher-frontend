@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { PWD_REGEX, USERNAME_REGEX } from "../../util/constants";
 import "./registerform.css";
 import FormPrompt from "./FormPrompt";
@@ -17,8 +17,6 @@ const RegisterForm = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
 
   useEffect(() => {
     const checkUsername = () => {
@@ -47,7 +45,7 @@ const RegisterForm = () => {
         email: username,
         password: pwd,
       });
-      navigate(from, { replace: true });
+      navigate("/"); // TODO - show login success message, when it is successful.
     } catch (err) {
       if (err.response) {
         console.log(
