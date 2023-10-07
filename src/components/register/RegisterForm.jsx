@@ -57,7 +57,7 @@ const RegisterForm = () => {
         errorMsg = err.response.data.description;
       } else {
         console.log(`Error: ${err.message}`);
-       errorMsg = err.message;
+        errorMsg = err.message;
       }
       setErrorMessage(errorMsg);
     }

@@ -28,7 +28,7 @@ const LoginForm = () => {
         email: username,
         password: pwd,
       });
-      dispatch(userLogged({ accessToken: response.data.response.token }));
+      dispatch(userLogged({ accessToken: response.data.data.token }));
       navigate(from, { replace: true });
     } catch (err) {
       let errorMsg;
@@ -41,7 +41,7 @@ const LoginForm = () => {
         errorMsg =
           err.response.status === 401
             ? "Username and password does not match"
-            : err.response?.data?.description;
+            : err.response?.data.description;
       } else {
         console.log(`Error: ${err.message}`);
         errorMsg = err.message;
