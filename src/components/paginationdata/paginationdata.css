@@ -1,0 +1,41 @@
+.paginationComp {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.paginationComp button {
+    padding: 3px;
+    width: 40px;
+    height: 30px;
+    margin-top: 3px;
+    margin-right: 3px;
+    color: #fff;
+    border-radius: 3px;
+    background-color: mediumseagreen;
+    border: 1px solid green;
+}
+
+.paginationComp button:hover {
+    cursor: pointer;
+    background-color: green;
+}
+
+.paginationFormComp {
+    margin-left: 25px;
+}
+
+.paginationFormComp form label {
+    position: absolute;
+    left: -99999px;
+}
+
+.paginationFormComp form select {
+    margin-left: 3px;
+    margin-right: 3px;
+    height: 30px;
+}
+
+.paginationFormComp form button {
+    width: 120px;
+}

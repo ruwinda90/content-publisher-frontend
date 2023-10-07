@@ -1,0 +1,8 @@
+.articlePageComp .searchForm button {
+    background-color: mediumseagreen;
+    border: 1px solid green;
+}
+
+.articlePageComp .searchForm button:hover {
+    background-color: green;
+}

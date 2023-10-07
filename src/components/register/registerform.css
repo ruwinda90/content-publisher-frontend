@@ -1,0 +1,58 @@
+.loginComp .loginArea {
+    color: white;
+    background: mediumseagreen;
+    padding: 50px;
+    border-radius: 10px;
+    width: 400px;
+}
+
+.loginComp .loginArea h1 {
+    margin-bottom: 20px;
+}
+
+.loginComp .loginArea a {
+    color: white;
+}
+
+.loginComp .loginArea .loginForm {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 1rem;
+}
+
+.loginComp .loginArea .loginForm .prompt {
+    color: aquamarine;
+    background-color: black;
+    margin: 3px 3px 0px 3px;
+    padding: 3px;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.loginComp .loginArea .loginForm label {
+    margin-bottom: 5px;
+}
+
+.loginComp .loginArea .loginForm input {
+    margin-left: 3px;
+    margin-right: 3px;
+    margin-bottom: 5px;
+    height: 30px;
+    outline: none;
+    padding: 0.25rem;
+    border-radius: 3px;
+}
+
+.loginComp .loginArea .loginForm button {
+    margin-top: 20px;
+    background-color: #008B8B;
+    border: 1px solid green;
+}
+
+.loginComp .loginArea .loginForm button:hover:enabled {
+    background-color: #004953;
+}
+
+.loginComp .loginArea .loginForm button:disabled {
+    background-color: grey;
+}

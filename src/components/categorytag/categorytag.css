@@ -1,0 +1,7 @@
+span {
+    box-sizing: border-box;
+    border: 1px black solid;
+    border-radius: 3px;
+    padding: 2px;
+    margin: 0px 3px 0px 3px;
+}

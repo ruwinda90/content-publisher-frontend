@@ -1,0 +1,38 @@
+.navComp {
+    width: 100%;
+    background-color: #333;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.navComp ul {
+    color: #fff;
+    list-style-type: none;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.navComp li {
+    padding: 1rem;
+}
+
+.navComp li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.navComp li:hover,
+.navComp li:focus,
+.navComp li:hover a,
+.navComp li:focus a {
+    background-color: #eee;
+    color: #333;
+}
+
+.navComp li:hover a,
+.navComp li:focus a {
+    cursor: pointer;
+}

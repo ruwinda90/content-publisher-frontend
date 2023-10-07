@@ -1,0 +1,136 @@
+/* Common layout related CSS. */
+.layoutComp {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.layoutComp .listArea {
+  height: 100%;
+  overflow-y: auto;
+  padding-bottom: 100px;
+}
+
+button {
+  padding: 3px;
+  width: 80px;
+  height: 30px;
+  margin-top: 3px;
+  margin-right: 3px;
+  color: #fff;
+  border-radius: 3px;
+}
+
+button:hover:enabled {
+  cursor: pointer;
+}
+
+button:hover:disabled {
+  cursor: not-allowed;
+}
+
+button:disabled {
+  background-color: grey;
+}
+
+.layoutComp .viewButton {
+  background-color: mediumseagreen;
+  border: 1px solid green;
+}
+
+.layoutComp .viewButton:hover:enabled {
+  background-color: green;
+}
+
+.layoutComp .editButton {
+  background-color: #008B8B;
+  border: 1px solid black;
+}
+
+.layoutComp .editButton:hover:enabled {
+  background-color: #004953;
+}
+
+.layoutComp .deleteButton {
+  background-color: #BA0021;
+  border: 1px solid #97233F;
+}
+
+.layoutComp .deleteButton:hover:enabled {
+  background-color: #A52A2A;
+}
+
+.homeComp,
+.aboutComp,
+.userPageComp,
+.articlePageComp,
+.articleViewComp,
+.articleEditComp,
+.publishComp,
+.unauthorizedComp,
+.missingComp {
+  width: 100%;
+  flex-grow: 1;
+  padding: 1rem;
+  overflow-y: hidden;
+  background-color: #fff;
+}
+
+/* Forms related CSS. */
+.searchForm label {
+  position: absolute;
+  left: -99999px;
+}
+
+.searchForm input {
+  margin-left: 3px;
+  margin-right: 3px;
+  height: 30px;
+  outline: none;
+  padding: 0.25rem;
+}
+
+.searchForm select {
+  margin-left: 3px;
+  margin-right: 3px;
+  height: 30px;
+}
+
+/* Login page CSS. */
+.loginComp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+/*Article view page CSS. */
+.articleViewComp .authorName {
+  color: mediumseagreen;
+}
+
+.articleViewComp .date {
+  color: green;
+  font-size: 14px;
+}
+
+/* Article edit page CSS. */
+.articleEditComp .searchForm input {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.articleEditComp .searchForm input.summarySlot {
+  width: 100%;
+  height: auto;
+  max-height: 60px;
+}
+
+.articleEditComp .searchForm input.contentSlot {
+  width: 100%;
+  height: auto;
+}
