@@ -13,15 +13,18 @@ const authSlice = createSlice({
   },
   reducers: {
     userLogged(state, action) {
-      state.isLogged = true; // todo - test this
+      state.isLogged = true;
       state.data.userId = action.payload?.userId;
       state.data.userWriterId = action.payload?.userWriterId;
-      state.data.accessToken = action.payload?.accessToken;
+      state.data.accessToken = action.payload.accessToken;
     },
+    accessTokenRefreshed(state, action) {
+      state.data.accessToken = action.payload.accessToken;
+    }
   },
 });
 
-export const { userLogged } = authSlice.actions;
+export const { userLogged, accessTokenRefreshed } = authSlice.actions;
 
 export default authSlice.reducer;
 
