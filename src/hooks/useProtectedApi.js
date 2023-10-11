@@ -10,7 +10,7 @@ const useProtectedApi = () => {
   useEffect(() => {
     const requestIntercept = protectedApi.interceptors.request.use(
       (config) => {
-        if (config.headers["Authorization"]) {
+        if (!config.headers["Authorization"]) {
           config.headers["Authorization"] = `Bearer ${accessToken}`;
         }
         return config;

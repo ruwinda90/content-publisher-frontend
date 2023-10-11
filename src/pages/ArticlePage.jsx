@@ -4,23 +4,26 @@ import ArticleSearch from "../components/articlesearch/ArticleSearch";
 import PaginationData from "../components/paginationdata/PaginationData";
 import { api } from "../api/apiRequest";
 import axios from "axios";
+import useProtectedApi from "../hooks/useProtectedApi";
 
 const ArticlePage = ({ userWriterId }) => {
   const [articleList, setArticleList] = useState([]);
   const [isArticlesLoading, setIsArticlesLoading] = useState(true);
   const [isArticlesApiError, setIsArticlesApiError] = useState(false);
 
-  useEffect(() => {
+  const protectedApi = useProtectedApi();
+
+  useEffect(() => { 
     let isMount = true;
     const source = axios.CancelToken.source();
 
     const fetchArticles = async () => {
-      try {
-        const response = await api.get("/articles", {
+      try { 
+        const response = await protectedApi.get("/view/content?categoryId=1&page=1&pageSize=20", {
           cancelToken: source.token,
         });
-        if (isMount) setArticleList(response.data); // todo - add a transform later.
-      } catch (err) {
+        if (isMount) setArticleList(response.data.data.contentList); // todo - add a transform later.
+      } catch (err) { 
         if (isMount) {
           setIsArticlesApiError(true);
           if (err.response) {
@@ -52,7 +55,7 @@ const ArticlePage = ({ userWriterId }) => {
   useEffect(() => {
     const DEFAULT_CATEGORY = { id: 0, categoryName: "All categories" }; // todo - investigate this.
     let isMount = true;
-    const source = axios.CancelToken.source();
+    const source = axios.CancelToken.source(); 
 
     const fetchCategories = async () => {
       try {
@@ -71,7 +74,7 @@ const ArticlePage = ({ userWriterId }) => {
           }
         }
       } finally {
-        if (isMount) setIsCategoryLoading(false);
+        if (isMount) setIsCategoryLoading(false); 
       }
     };
     fetchCategories();
