@@ -24,10 +24,16 @@ const LoginForm = () => {
     e.preventDefault();
 
     try {
-      const response = await api.post("/authenticate", {
-        email: username,
-        password: pwd,
-      });
+      const response = await api.post(
+        "/authenticate",
+        {
+          email: username,
+          password: pwd,
+        },
+        {
+          withCredentials: true,
+        }
+      );
       dispatch(userLogged({ accessToken: response.data.data.token }));
       navigate(from, { replace: true });
     } catch (err) {

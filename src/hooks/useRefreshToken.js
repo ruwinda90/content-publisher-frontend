@@ -12,6 +12,8 @@ const useRefreshToken = () => {
       });
 
       dispatch(accessTokenRefreshed({ accessToken: response.data.data.token }));
+      
+      return response.data.data.token;
     } catch (err) {
       if (err.response) {
         console.log(

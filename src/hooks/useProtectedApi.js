@@ -23,7 +23,7 @@ const useProtectedApi = () => {
       async (error) => {
         const prevRequest = error?.config;
 
-        if (error?.response?.status === 403 && !prevRequest?.sent) { // todo - change
+        if (error?.response?.status === 401 && !prevRequest?.sent) { // todo - change
           prevRequest.sent = true;
 
           const newAccessToken = await refresh();
