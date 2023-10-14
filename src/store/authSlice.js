@@ -8,7 +8,7 @@ const authSlice = createSlice({
       userId: null,
       userWriterId: null,
       accessToken: null,
-      role: 1000,
+      role: null,
     },
   },
   reducers: {
@@ -17,14 +17,22 @@ const authSlice = createSlice({
       state.data.userId = action.payload?.userId;
       state.data.userWriterId = action.payload?.userWriterId;
       state.data.accessToken = action.payload.accessToken;
+      state.data.role = 1000;
+    },
+    userLoggedOut(state, action) {
+      state.isLogged = false;
+      state.data.userId = null;
+      state.data.userWriterId = null;
+      state.data.accessToken = null;
+      state.data.role = null;
     },
     accessTokenRefreshed(state, action) {
       state.data.accessToken = action.payload.accessToken;
-    }
+    },
   },
 });
 
-export const { userLogged, accessTokenRefreshed } = authSlice.actions;
+export const { userLogged, userLoggedOut, accessTokenRefreshed } = authSlice.actions;
 
 export default authSlice.reducer;
 

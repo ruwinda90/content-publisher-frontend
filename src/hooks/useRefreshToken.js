@@ -1,6 +1,6 @@
 import { authApi } from "../api/apiRequest";
 import { useDispatch } from "react-redux";
-import { accessTokenRefreshed } from "../store/authSlice";
+import { accessTokenRefreshed, userLoggedOut } from "../store/authSlice";
 
 const useRefreshToken = () => {
   const dispatch = useDispatch();
@@ -24,6 +24,7 @@ const useRefreshToken = () => {
       } else {
         console.log(`Error: ${err.message}`);
       }
+      dispatch(userLoggedOut({}));
     }
   };
 
