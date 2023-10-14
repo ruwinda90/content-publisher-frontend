@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import CategoryTag from "../components/categorytag/CategoryTag";
 import { api } from "../api/apiRequest";
+import useProtectedApi from "../hooks/useProtectedApi";
 import axios from "axios";
 import { useParams, useNavigate, Link } from "react-router-dom";
 
@@ -12,16 +13,23 @@ const ArticleView = ({ userWriterId }) => {
   const [isArticleApiError, setIsArticleApiError] = useState(false);
   const [apiErrorCode, setApiErrorCode] = useState(null);
 
+  const protectedApi = useProtectedApi();
+
   useEffect(() => {
     let isMount = true;
     const source = axios.CancelToken.source();
 
     const fetchArticle = async () => {
       try {
-        const response = await api.get(`/articles/${id}`, {
-          cancelToken: source.token,
-        });
-        if (isMount) setArticle(response.data); // todo - add a transform later.
+        const response = await protectedApi.get(`/view/content/${id}`, 
+         {
+          cancelToken: source.token, 
+        }
+        );
+        if (isMount) {
+          console.log(JSON.stringify(response.data.data));
+          setArticle(response.data.data); // todo - add a transform later.
+        }
       } catch (err) {
         if (isMount) {
           setIsArticleApiError(true);
@@ -112,5 +120,5 @@ const ArticleView = ({ userWriterId }) => {
 export default ArticleView;
 
 ArticleView.defaultProps = {
-  userWriterId: 1,
+  userWriterId: 1, // todo - remove
 };
