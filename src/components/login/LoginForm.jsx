@@ -34,7 +34,12 @@ const LoginForm = () => {
           withCredentials: true,
         }
       );
-      dispatch(userLogged({ accessToken: response.data.data.token }));
+      dispatch(
+        userLogged({
+          accessToken: response.data.data.token,
+          userWriterId: response.data.data.writerId,
+        })
+      );
       navigate(from, { replace: true });
     } catch (err) {
       let errorMsg;
