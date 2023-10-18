@@ -4,8 +4,9 @@ import { api } from "../api/apiRequest";
 import useProtectedApi from "../hooks/useProtectedApi";
 import axios from "axios";
 import { useParams, useNavigate, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const ArticleView = ({ userWriterId }) => {
+const ArticleView = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [article, setArticle] = useState(null);
@@ -14,6 +15,7 @@ const ArticleView = ({ userWriterId }) => {
   const [apiErrorCode, setApiErrorCode] = useState(null);
 
   const protectedApi = useProtectedApi();
+  const userWriterId = useSelector(state => state.auth.data.userWriterId);
 
   useEffect(() => {
     let isMount = true;
@@ -118,7 +120,3 @@ const ArticleView = ({ userWriterId }) => {
 };
 
 export default ArticleView;
-
-ArticleView.defaultProps = {
-  userWriterId: 1, // todo - remove
-};
