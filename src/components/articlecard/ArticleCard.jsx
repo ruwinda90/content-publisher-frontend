@@ -2,7 +2,7 @@ import React from "react";
 import "./articlecard.css";
 import { Link } from "react-router-dom";
 
-const ArticleCard = ({
+const ArticleCard = ({ // todo - remove unwanted props
   id,
   topic,
   summary,
@@ -23,12 +23,6 @@ const ArticleCard = ({
         <Link to={`/article/${id}`}>
           <button className="viewButton">View</button>
         </Link>
-      {userWriterId === writerId && (
-        <>
-          <button className="editButton">Edit</button>
-          <button className="deleteButton">Delete</button>
-        </>
-      )}
     </div>
   );
 };

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import CategoryTag from "../components/categorytag/CategoryTag";
-import { api } from "../api/apiRequest";
 import useProtectedApi from "../hooks/useProtectedApi";
 import axios from "axios";
 import { useParams, useNavigate, Link } from "react-router-dom";
@@ -60,7 +59,7 @@ const ArticleView = () => {
 
   const handleDelete = async () => {
     try {
-      await api.delete(`/articles/${id}`); // todo - send popups notifiying the status of the action.
+      await protectedApi.delete(`/publisher/content/${id}`); // todo - send popups notifiying the status of the action.
       navigate("/article");
     } catch (err) {
       console.log(err.response.data);
@@ -111,7 +110,7 @@ const ArticleView = () => {
             <h2>Summary</h2>
             <p>{article.summary}</p>
             <h2>Content</h2>
-            <p>{article.content}</p>
+            <p>{article.details}</p>
           </div>
         </>
       )}

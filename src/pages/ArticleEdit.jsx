@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { api } from "../api/apiRequest";
+import useProtectedApi from "../hooks/useProtectedApi";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -16,6 +16,7 @@ const ArticleEdit = () => {
   const [isArticleApiError, setIsArticleApiError] = useState(false);
   const [apiErrorCode, setApiErrorCode] = useState(null);
 
+  const protectedApi = useProtectedApi();
   const [article, setArticle] = useState(null); // TODO - use Redux and improve this.
 
   const handleSubmit = async (e) => {
@@ -24,10 +25,10 @@ const ArticleEdit = () => {
     requestBody.id = id;
     if (newTitle !== article.title) requestBody.title = newTitle;
     if (newSummary !== article.summary) requestBody.summary = newSummary;
-    if (newContent !== article.content) requestBody.content = newContent;
+    if (newContent !== article.details) requestBody.details = newContent;
 
     try {
-      const response = await api.patch(`/articles/${id}`, requestBody); // TODO - add pop-ups
+      const response = await protectedApi.put(`/publisher/content/${id}`, requestBody); // TODO - add pop-ups
       navigate(`/article/${id}`);
     } catch (err) {
       if (err.response) {
@@ -45,14 +46,14 @@ const ArticleEdit = () => {
 
     const fetchArticle = async () => {
       try {
-        const response = await api.get(`/articles/${id}`, {
+        const response = await protectedApi.get(`/view/content/${id}`, {
           cancelToken: source.token,
         });
         if (isMount) {
-          setArticle(response.data); // todo - add a transform later.
-          setNewTitle(response.data.title);
-          setNewSummary(response.data.summary);
-          setNewContent(response.data.content);
+          setArticle(response.data.data); // todo - add a transform later.
+          setNewTitle(response.data.data.title);
+          setNewSummary(response.data.data.summary);
+          setNewContent(response.data.data.details);
         }
       } catch (err) {
         if (isMount) {
@@ -102,7 +103,7 @@ const ArticleEdit = () => {
             id="newTitle"
             type="text"
             value={newTitle}
-            onChange={(e) => setNewTitle(e.target.value)} // TODO - add client-side pop-up validations
+            onChange={(e) => setNewTitle(e.target.value.trim())} // TODO - add client-side pop-up validations
           />
           <h1>Summary:</h1>
           <label htmlFor="newSummary">Edit post summary</label>
@@ -111,7 +112,7 @@ const ArticleEdit = () => {
             id="newSummary"
             type="text"
             value={newSummary}
-            onChange={(e) => setNewSummary(e.target.value)}
+            onChange={(e) => setNewSummary(e.target.value.trim())}
           />
           <h1>Content:</h1>
           <label htmlFor="newContent">Edit post content</label>
@@ -120,7 +121,7 @@ const ArticleEdit = () => {
             id="newContent"
             type="text"
             value={newContent}
-            onChange={(e) => setNewContent(e.target.value)}
+            onChange={(e) => setNewContent(e.target.value.trim())}
           />
           <button
             className="editButton"
@@ -128,8 +129,8 @@ const ArticleEdit = () => {
             onClick={() => inputRef.current.focus()}
             disabled={
               newTitle === article.title &&
-              newSummary == article.summary &&
-              newContent === article.content
+              newSummary === article.summary &&
+              newContent === article.details
             }
           >
             Edit
