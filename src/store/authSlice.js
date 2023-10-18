@@ -14,10 +14,10 @@ const authSlice = createSlice({
   reducers: {
     userLogged(state, action) {
       state.isLogged = true;
-      state.data.userId = action.payload?.userId;
+      state.data.userId = action.payload?.userId; // todo - not set yet
       state.data.userWriterId = action.payload?.userWriterId;
       state.data.accessToken = action.payload.accessToken;
-      state.data.role = 1000;
+      state.data.role = 1000; // todo
     },
     userLoggedOut(state, action) {
       state.isLogged = false;
