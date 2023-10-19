@@ -6,7 +6,7 @@ import { api } from "../api/apiRequest";
 import axios from "axios";
 import useProtectedApi from "../hooks/useProtectedApi";
 
-const ArticlePage = ({ userWriterId }) => {
+const ArticlePage = () => {
   const [articleList, setArticleList] = useState([]);
   const [isArticlesLoading, setIsArticlesLoading] = useState(true);
   const [isArticlesApiError, setIsArticlesApiError] = useState(false);
@@ -106,7 +106,7 @@ const ArticlePage = ({ userWriterId }) => {
         {!isArticlesLoading &&
           !isArticlesApiError &&
           (articleList.length ? (
-            <ArticleList articles={articleList} userWriterId={userWriterId} />
+            <ArticleList articles={articleList} />
           ) : (
             <p>No articles found!</p>
           ))}

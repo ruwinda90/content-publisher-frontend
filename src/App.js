@@ -11,12 +11,10 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import RequireAuth from "./components/auth/RequireAuth";
 import NotRequireAuth from "./components/auth/NotRequireAuth";
-import { useSelector } from "react-redux";
 import PublishPage from "./pages/PublishPage";
 import UnAuthorized from "./pages/UnAuthorized";
 
 function App() {
-  const userWriterId = useSelector((state) => state.auth.data.userWriterId);
 
   return (
     <Routes>
@@ -27,7 +25,7 @@ function App() {
           <Route path="article">
             <Route
               index
-              element={<ArticlePage userWriterId={userWriterId} />}
+              element={<ArticlePage />}
             />
             <Route path=":id">
               <Route index element={<ArticleView />} />

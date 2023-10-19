@@ -8,7 +8,6 @@ const ArticleCard = ({ // todo - remove unwanted props
   summary,
   createdAt,
   updatedAt,
-  userWriterId,
   writerId,
   writerName,
 }) => {
