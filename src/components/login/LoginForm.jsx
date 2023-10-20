@@ -4,6 +4,9 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { userLogged } from "../../store/authSlice";
 import { authApi as api } from "../../api/apiRequest";
 import FormPrompt from "../register/FormPrompt";
+import { notificationSent } from "../../store/notificationSlice";
+import { USER_LOGIN_SUCCESS } from "../../util/notifyMessages";
+import { notifyType } from "../notification/Notification";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
@@ -41,6 +44,12 @@ const LoginForm = () => {
         })
       );
       navigate(from, { replace: true });
+      dispatch(
+        notificationSent({
+          message: USER_LOGIN_SUCCESS,
+          type: notifyType.INFO,
+        })
+      );
     } catch (err) {
       let errorMsg;
       if (err.response) {

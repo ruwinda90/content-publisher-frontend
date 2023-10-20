@@ -11,18 +11,24 @@ html {
 }
 
 body {
-    min-height: 100vh;
-    font-family: 'Open Sans', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    display: flex;
-    background-color: #efefef;
-  }
+  min-height: 100vh;
+  font-family: 'Open Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  background-color: #efefef;
+}
 
-  #root {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  } 
-  
+#root {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#notifyContainer {
+  position: fixed;
+  top: 120px;
+  right: 50px;
+  width: 300px;
+}

@@ -2,11 +2,19 @@ import React, { useState, useEffect, useRef } from "react";
 import useProtectedApi from "../hooks/useProtectedApi";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { notificationSent } from "../store/notificationSlice";
+import {
+  ARTICLE_EDIT_FAILURE,
+  ARTICLE_EDIT_SUCCESS,
+} from "../util/notifyMessages";
+import { notifyType } from "../components/notification/Notification";
 
 const ArticleEdit = () => {
   const { id } = useParams();
   const inputRef = useRef();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [newTitle, setNewTitle] = useState(null);
   const [newSummary, setNewSummary] = useState(null);
@@ -19,7 +27,7 @@ const ArticleEdit = () => {
   const protectedApi = useProtectedApi();
   const [article, setArticle] = useState(null); // TODO - use Redux and improve this.
 
-  const handleSubmit = async (e) => {
+  const handleEdit = async (e) => {
     e.preventDefault();
     const requestBody = {};
     requestBody.id = id;
@@ -28,9 +36,24 @@ const ArticleEdit = () => {
     if (newContent !== article.details) requestBody.details = newContent;
 
     try {
-      const response = await protectedApi.put(`/publisher/content/${id}`, requestBody); // TODO - add pop-ups
+      const response = await protectedApi.put(
+        `/publisher/content/${id}`,
+        requestBody
+      );
       navigate(`/article/${id}`);
+      dispatch(
+        notificationSent({
+          message: ARTICLE_EDIT_SUCCESS,
+          type: notifyType.INFO,
+        })
+      );
     } catch (err) {
+      dispatch(
+        notificationSent({
+          message: ARTICLE_EDIT_FAILURE,
+          type: notifyType.ERROR,
+        })
+      );
       if (err.response) {
         console.log(err.response.data);
         console.log(err.response.status);
@@ -93,7 +116,7 @@ const ArticleEdit = () => {
         </p>
       )}
       {!isArticleLoading && !isArticleApiError && (
-        <form className="searchForm" onSubmit={(e) => handleSubmit(e)}>
+        <form className="searchForm" onSubmit={(e) => handleEdit(e)}>
           <h1>Heading:</h1>
           <label htmlFor="newTitle">Edit post title</label>
           <input // TODO - style these input fields properly
