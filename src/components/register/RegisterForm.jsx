@@ -45,7 +45,7 @@ const RegisterForm = () => {
         email: username,
         password: pwd,
       });
-      navigate("/"); // TODO - show login success message, when it is successful.
+      navigate("/");
     } catch (err) {
       let errorMsg;
       if (err.response) {

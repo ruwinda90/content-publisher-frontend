@@ -126,7 +126,7 @@ const ArticleEdit = () => {
             id="newTitle"
             type="text"
             value={newTitle}
-            onChange={(e) => setNewTitle(e.target.value.trim())} // TODO - add client-side pop-up validations
+            onChange={(e) => setNewTitle(e.target.value.trim())}
           />
           <h1>Summary:</h1>
           <label htmlFor="newSummary">Edit post summary</label>

@@ -3,7 +3,10 @@ import CategoryTag from "../components/categorytag/CategoryTag";
 import useProtectedApi from "../hooks/useProtectedApi";
 import axios from "axios";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { notificationSent } from "../store/notificationSlice";
+import { ARTICLE_DELETE_FAILURE, ARTICLE_DELETE_SUCCESS } from "../util/notifyMessages";
+import { notifyType } from "../components/notification/Notification";
 
 const ArticleView = () => {
   const { id } = useParams();
@@ -14,7 +17,8 @@ const ArticleView = () => {
   const [apiErrorCode, setApiErrorCode] = useState(null);
 
   const protectedApi = useProtectedApi();
-  const userWriterId = useSelector(state => state.auth.data.userWriterId);
+  const userWriterId = useSelector((state) => state.auth.data.userWriterId);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     let isMount = true;
@@ -22,11 +26,9 @@ const ArticleView = () => {
 
     const fetchArticle = async () => {
       try {
-        const response = await protectedApi.get(`/view/content/${id}`, 
-         {
-          cancelToken: source.token, 
-        }
-        );
+        const response = await protectedApi.get(`/view/content/${id}`, {
+          cancelToken: source.token,
+        });
         if (isMount) {
           console.log(JSON.stringify(response.data.data));
           setArticle(response.data.data); // todo - add a transform later.
@@ -59,9 +61,21 @@ const ArticleView = () => {
 
   const handleDelete = async () => {
     try {
-      await protectedApi.delete(`/publisher/content/${id}`); // todo - send popups notifiying the status of the action.
+      await protectedApi.delete(`/publisher/content/${id}`);
       navigate("/article");
+      dispatch(
+        notificationSent({
+          message: ARTICLE_DELETE_SUCCESS,
+          type: notifyType.ALERT,
+        })
+      );
     } catch (err) {
+      dispatch(
+        notificationSent({
+          message: ARTICLE_DELETE_FAILURE,
+          type: notifyType.ERROR,
+        })
+      );
       console.log(err.response.data);
       console.log(err.response.status);
     }
