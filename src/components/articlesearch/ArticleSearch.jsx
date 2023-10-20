@@ -42,7 +42,7 @@ const ArticleSearch = ({ categoryList }) => {
       >
         {categoryList.map((category) => (
           <option key={category.id} value={category.id}>
-            {category.categoryName}
+            {category.name}
           </option>
         ))}
       </select>
