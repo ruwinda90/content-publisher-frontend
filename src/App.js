@@ -14,6 +14,7 @@ import NotRequireAuth from "./components/auth/NotRequireAuth";
 import PublishPage from "./pages/PublishPage";
 import UnAuthorized from "./pages/UnAuthorized";
 import PersistLogin from "./components/persistlogin/PersistLogin";
+import { READER, WRITER } from "./util/roles";
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
       <Route path="/" element={<Layout />}>
         {/* Protected routes */}
         <Route element={<PersistLogin />}>
-          <Route element={<RequireAuth allowedRoles={[1000]} />}>
+          <Route element={<RequireAuth allowedRoles={[READER]} />}>
             <Route index element={<Home />} />
             <Route path="article">
               <Route index element={<ArticlePage />} />
@@ -34,7 +35,7 @@ function App() {
             <Route path="user" element={<UserPage />} />
             <Route path="about" element={<About />} />
           </Route>
-          <Route element={<RequireAuth allowedRoles={[2000]} />}>
+          <Route element={<RequireAuth allowedRoles={[WRITER]} />}>
             <Route path="publish" element={<PublishPage />} />
           </Route>
         </Route>

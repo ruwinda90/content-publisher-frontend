@@ -41,6 +41,7 @@ const LoginForm = () => {
         userLoggedIn({
           accessToken: response.data.data.token,
           userWriterId: response.data.data.writerId,
+          role: response.data.data.roles[0],
         })
       );
       navigate(from, { replace: true });

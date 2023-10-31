@@ -15,6 +15,8 @@ const useRefreshToken = () => {
         accessTokenRefreshed({
           isLogged: true,
           accessToken: response.data.data.token,
+          userWriterId: response.data.data.writerId,
+          role: response.data.data.roles[0],
         })
       );
 

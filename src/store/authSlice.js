@@ -17,7 +17,7 @@ const authSlice = createSlice({
       state.data.userId = action.payload?.userId; // todo - not set yet
       state.data.userWriterId = action.payload?.userWriterId;
       state.data.accessToken = action.payload.accessToken;
-      state.data.role = 1000; // todo
+      state.data.role = action.payload.role;
     },
     userLoggedOut(state, action) {
       state.isLogged = false;
@@ -28,8 +28,9 @@ const authSlice = createSlice({
     },
     accessTokenRefreshed(state, action) { // todo maybe make this equal to userLogged
       state.isLogged = true;
+      state.data.userWriterId = action.payload?.userWriterId;
       state.data.accessToken = action.payload.accessToken;
-      state.data.role = 1000; // todo
+      state.data.role = action.payload.role;
     },
   },
 });
@@ -37,12 +38,3 @@ const authSlice = createSlice({
 export const { userLoggedIn, userLoggedOut, accessTokenRefreshed } = authSlice.actions;
 
 export default authSlice.reducer;
-
-  // const userData = {
-  //   isLogged: false,
-  //   data: {
-  //     userId: 10,
-  //     userWriterId: null,
-  //     accessToken: "eYgdfsdkfgdfgkfghdl23489dfghs/sdfrfg443",
-  //   },
-  // };
