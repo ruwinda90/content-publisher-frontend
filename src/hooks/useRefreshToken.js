@@ -11,8 +11,13 @@ const useRefreshToken = () => {
         withCredentials: true,
       });
 
-      dispatch(accessTokenRefreshed({ accessToken: response.data.data.token }));
-      
+      dispatch(
+        accessTokenRefreshed({
+          isLogged: true,
+          accessToken: response.data.data.token,
+        })
+      );
+
       return response.data.data.token;
     } catch (err) {
       if (err.response) {

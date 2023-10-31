@@ -26,8 +26,10 @@ const authSlice = createSlice({
       state.data.accessToken = null;
       state.data.role = null;
     },
-    accessTokenRefreshed(state, action) {
+    accessTokenRefreshed(state, action) { // todo maybe make this equal to userLogged
+      state.isLogged = true;
       state.data.accessToken = action.payload.accessToken;
+      state.data.role = 1000; // todo
     },
   },
 });

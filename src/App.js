@@ -13,31 +13,32 @@ import RequireAuth from "./components/auth/RequireAuth";
 import NotRequireAuth from "./components/auth/NotRequireAuth";
 import PublishPage from "./pages/PublishPage";
 import UnAuthorized from "./pages/UnAuthorized";
+import PersistLogin from "./components/persistlogin/PersistLogin";
 
 function App() {
-
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         {/* Protected routes */}
-        <Route element={<RequireAuth allowedRoles={[1000]} />}>
-          <Route index element={<Home />} />
-          <Route path="article">
-            <Route
-              index
-              element={<ArticlePage />}
-            />
-            <Route path=":id">
-              <Route index element={<ArticleView />} />
-              <Route path="edit" element={<ArticleEdit />} /> {/**Handle this complex logic using Redux */}
+        <Route element={<PersistLogin />}>
+          <Route element={<RequireAuth allowedRoles={[1000]} />}>
+            <Route index element={<Home />} />
+            <Route path="article">
+              <Route index element={<ArticlePage />} />
+              <Route path=":id">
+                <Route index element={<ArticleView />} />
+                <Route path="edit" element={<ArticleEdit />} />{" "}
+                {/**Handle this complex logic using Redux */}
+              </Route>
             </Route>
+            <Route path="user" element={<UserPage />} />
+            <Route path="about" element={<About />} />
           </Route>
-          <Route path="user" element={<UserPage />} />
-          <Route path="about" element={<About />} />
+          <Route element={<RequireAuth allowedRoles={[2000]} />}>
+            <Route path="publish" element={<PublishPage />} />
+          </Route>
         </Route>
-        <Route element={<RequireAuth allowedRoles={[2000]} />}>
-          <Route path="publish" element={<PublishPage />} />
-        </Route>
+
         <Route path="unauthorized" element={<UnAuthorized />} />
         <Route path="*" element={<Missing />} />
       </Route>
