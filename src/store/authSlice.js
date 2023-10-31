@@ -12,7 +12,7 @@ const authSlice = createSlice({
     },
   },
   reducers: {
-    userLogged(state, action) {
+    userLoggedIn(state, action) {
       state.isLogged = true;
       state.data.userId = action.payload?.userId; // todo - not set yet
       state.data.userWriterId = action.payload?.userWriterId;
@@ -34,7 +34,7 @@ const authSlice = createSlice({
   },
 });
 
-export const { userLogged, userLoggedOut, accessTokenRefreshed } = authSlice.actions;
+export const { userLoggedIn, userLoggedOut, accessTokenRefreshed } = authSlice.actions;
 
 export default authSlice.reducer;
 

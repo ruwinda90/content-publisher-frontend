@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { userLogged } from "../../store/authSlice";
+import { userLoggedIn } from "../../store/authSlice";
 import { authApi as api } from "../../api/apiRequest";
 import FormPrompt from "../register/FormPrompt";
 import { notificationSent } from "../../store/notificationSlice";
@@ -38,7 +38,7 @@ const LoginForm = () => {
         }
       );
       dispatch(
-        userLogged({
+        userLoggedIn({
           accessToken: response.data.data.token,
           userWriterId: response.data.data.writerId,
         })
